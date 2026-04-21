@@ -68,4 +68,4 @@ COPY docker_startup.sh /
 RUN chmod +x /docker_startup.sh
 
 # Default command
-ENTRYPOINT ["/docker_startup.sh"]
+CMD ["/docker_startup.sh", "-K", "$CLIENT_KEY", "-P", "7860", "-M", "2", "-H", "0.0.0.0", "-T", "30"]
