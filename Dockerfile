@@ -2,17 +2,13 @@ FROM kasmweb/desktop:1.16.0-rolling-daily
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Switch to root for all system installs
 USER root
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update && \
     apt-get install -y --no-install-recommends \
-        python3.10 \
-        python3.10-venv \
-        python3.10-dev \
+        python3 \
+        python3-venv \
+        python3-dev \
         python3-pip \
         wget \
         gnupg \
@@ -48,7 +44,7 @@ RUN chown -R 1000:1000 /app
 
 USER 1000
 
-RUN python3.10 -m venv /app/venv
+RUN python3 -m venv /app/venv
 ENV PATH="/app/venv/bin:$PATH"
 
 COPY --chown=1000:1000 . .
