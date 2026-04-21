@@ -65,7 +65,9 @@ EXPOSE 3000
 
 # Copy and set up startup script
 COPY docker_startup.sh /
-RUN chmod +x /docker_startup.sh
+RUN chmod +x /docker_startup.sh && chown -R 1000:0 /app
+
+USER 1000
 
 # Default command
 CMD ["/docker_startup.sh", "-K", "$CLIENT_KEY", "-P", "7860", "-M", "2", "-H", "0.0.0.0", "-T", "30"]
