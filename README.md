@@ -1,3 +1,12 @@
+---
+title: Cloudfly
+emoji: ☁️
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
+---
+
 # Cloudflyer
 
 Cloudflyer is a Python service that helps solve various web security challenges including Cloudflare challenges, Turnstile captchas, and reCAPTCHA Invisible.
