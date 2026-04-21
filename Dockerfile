@@ -60,7 +60,8 @@ ENV PATH="/app/venv/bin:$PATH"
 
 COPY --chown=1000:1000 . .
 
-RUN /app/venv/bin/pip install --no-cache-dir -e .
+RUN /app/venv/bin/pip install --no-cache-dir --upgrade pip && \
+    /app/venv/bin/pip install --no-cache-dir -e .
 
 RUN wget -q https://github.com/zetxtech/wssocks/releases/download/v1.4.2/wssocks-linux-amd64 -O /app/wssocks && \
     chmod +x /app/wssocks
