@@ -8,8 +8,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 USER 1000
 RUN add-apt-repository -y ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt-get install -y python3.10 python3.10-venv python3.10-dev && \
     apt-get install -y \
+        python3.10 \
+        python3.10-venv \
+        python3.10-dev \
+        python3-pip \
         wget \
         gnupg \
         ca-certificates \
@@ -33,7 +36,7 @@ RUN add-apt-repository -y ppa:deadsnakes/ppa && \
         libasound2 \
         libcurl4 \
         libgbm1 \
-        && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # Add Google Chrome repository and install Google Chrome
 RUN wget https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_126.0.6478.126-1_amd64.deb && \
@@ -41,7 +44,7 @@ RUN wget https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-
     rm google-chrome-stable_126.0.6478.126-1_amd64.deb
 
 # Install Pip
-RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
+
 
 # Set up a working directory
 WORKDIR /app
