@@ -1,4 +1,4 @@
-FROM kasmweb/desktop:1.16.0-rolling-daily-ubuntu-jammy
+FROM kasmweb/desktop:1.18.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 
