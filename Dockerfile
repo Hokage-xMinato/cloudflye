@@ -11,6 +11,7 @@ RUN apt-get update && \
         python3-dev \
         python3-pip \
         wget \
+        curl \
         gnupg \
         ca-certificates \
         libx11-xcb1 \
@@ -34,10 +35,16 @@ RUN apt-get update && \
         libgbm1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Chrome via official Google repo
-RUN wget -q -O /tmp/chrome.gpg https://dl.google.com/linux/linux_signing_key.pub && \
-    gpg --dearmor /tmp/chrome.gpg > /usr/share/keyrings/google-chrome.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" \
+# Remove any existing broken Chrome repo/key entries from base image
+RUN rm -f /etc/apt/sources.list.d/google-chrome*.list \
+          /etc/apt/sources.list.d/google*.list \
+          /usr/share/keyrings/google-chrome*.gpg \
+          /etc/apt/trusted.gpg.d/google*.gpg
+
+# Add fresh Chrome repo with correct key
+RUN curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | \
+        gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main" \
         > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends google-chrome-stable && \
