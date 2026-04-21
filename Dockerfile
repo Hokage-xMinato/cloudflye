@@ -5,7 +5,7 @@ FROM kasmweb/desktop:1.16.0-rolling-daily
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages for Xvfb and pyvirtualdisplay
-USER root
+USER 1000
 RUN add-apt-repository -y ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get install -y python3.10 python3.10-venv python3.10-dev && \
@@ -61,13 +61,13 @@ RUN wget https://github.com/zetxtech/wssocks/releases/download/v1.4.2/wssocks-li
     chmod +x /app/wssocks
 
 # Expose the port for the FastAPI server
-EXPOSE 3000
+EXPOSE 7860
 
 # Copy and set up startup script
 COPY docker_startup.sh /
-RUN chmod +x /docker_startup.sh && chown -R 1000:0 /app
+RUN chmod +x /docker_startup.sh
 
-USER 1000
+
 
 # Default command
 CMD ["/docker_startup.sh", "-K", "$CLIENT_KEY", "-P", "7860", "-M", "2", "-H", "0.0.0.0", "-T", "30"]
